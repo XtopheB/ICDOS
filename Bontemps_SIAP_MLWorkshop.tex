@@ -1,0 +1,423 @@
+
+\documentclass[xcolor=x11names,compress, aspectratio=169]{beamer}
+%\documentclass[xcolor=x11names,compress, handhouts, aspectratio=169]{beamer}
+%% General document
+\usepackage{graphicx, subfig}
+%% Beamer Layout
+\useoutertheme[subsection=false,shadow]{miniframes}
+\useinnertheme{default}
+\usefonttheme{serif}
+\usepackage{palatino}
+
+%%%%%%% Mes Packages %%%%%%%%%%%%%%%%
+%\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{dsfont} % Pour indicatrice
+\usepackage{url}
+\usepackage{multirow}
+%remove the icon
+\setbeamertemplate{bibliography item}{}
+
+%remove line breaks
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+
+%% ------ MEs couleurs --------
+\definecolor{vert}{rgb}{0.1,0.7,0.2}
+\definecolor{brique}{rgb}{0.7,0.16,0.16}
+\definecolor{gris}{rgb}{0.7, 0.75, 0.71}
+\definecolor{twitterblue}{rgb}{0, 0.42, 0.58}
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{siap}{RGB}{3,133, 200}
+
+
+%%%%%%%%%%%%%%%%% BEAMER PACKAGE %%%%%%%
+
+
+\setbeamercolor{itemize item}{fg=siap}
+%\setbeamercolor{itemize subitem}{fg=blue}
+%\setbeamercolor{itemize subsubitem}{fg=cyan}
+
+
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4}
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=siap}
+\setbeamercolor*{example text}{fg=black}
+\setbeamercolor*{structure}{fg=black}
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10}
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
+
+% Set the header color to SIAP's color
+\setbeamercolor*{frametitle}{fg=siap}
+
+
+\renewcommand{\(}{\begin{columns}}
+\renewcommand{\)}{\end{columns}}
+\newcommand{\<}[1]{\begin{column}{#1}}
+\renewcommand{\>}{\end{column}}
+
+
+%% Add footer with logo
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex,%
+    leftskip=.3cm,rightskip=.3cm plus1fil]{author in head/foot}
+    \includegraphics[height=4ex]{SIAP_logo_Big.png}\hfill
+    \insertshortauthor\hfill\insertshorttitle\hfill  \textcolor{siap}{\textit{\insertframenumber}}
+  \end{beamercolorbox}%
+}
+
+
+% Path for the graphs
+\graphicspath{
+{Graphics/}
+{c:/Chris/UN-ESCAP/SIAP-E-learning/Resources/OpenScience/}
+{c:/Chris/Visualisation/Presentations/Graphics/}
+{c:/Chris/Visualisation/Presentations/Graphics/Logos/}
+{c:/Gitmain/MLCourse/UNML/Module0/M0_files/figure-html/}
+{c:/Chris/UN-ESCAP/MyCourses2022/MLOS2022/Slides/Graphics/}
+{c:/Chris/UN-ESCAP/MyCourses2023/RAP/Slides/Graphics/}
+{c:/GitMain/RAP/RAP-Course/images/}
+ }
+
+%remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+% Natbib for clean bibliography
+\usepackage[comma,authoryear]{natbib}
+
+
+\title{\textcolor{siap}{ML Training}}
+\subtitle{\large{Who? What? How? and ... \textcolor{orange}{\textbf{What for?}}}}
+\author{Christophe Bontemps}
+\institute{\large{\emph{Statistical Institute for Asia and the Pacific} } \\
+    \includegraphics[height=10ex]{SIAP_logo_Big.png}}
+\date{\emph{UNECE Machine Learning for Official Statistics Workshop 2023}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\begin{frame}[fragile]
+\frametitle{Disclaimer}
+
+\begin{columns}[c]
+  \begin{column}{0.6\textwidth}
+    \begin{itemize} [<+->]
+      \item My own views
+      \item Based on 2 facilitated courses (2021 \& 2022)
+      \item[+] 1 Self-paced course (2022-)
+      \item Experience on e-learning only \\ ($\simeq$ 1000 participants)
+      \item Support from Asian Development Bank
+    \end{itemize}
+  \end{column}
+
+  \begin{column}{0.4\textwidth}
+    \begin{center}
+\begin{itemize}
+    \only<1-3>{\includegraphics[width=0.70\textwidth]{open_education.png}  \\ }
+    \only<4-5>{\includegraphics[width=0.5\textwidth]{handson.png} \\  }
+    \only<1-5>{ \textcolor{gris}{\tiny{ Source: \href{https://book.fosteropenscience.eu/en/}{The Open Science Training Handbook} }}}
+\end{itemize}
+    \end{center}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\section{Training}
+
+\begin{frame}[fragile]
+\frametitle{Training vs Teaching?}
+\begin{columns}[t]
+  \begin{column}{0.5\textwidth}
+    \begin{itemize}[<+->]
+      \item \textcolor{orange}{Teaching}:\\
+       \emph{``to provide knowledge, instruction, or information''}\\
+      \item[$\hookrightarrow$] Software agnostic
+      \item \textcolor{orange}{Training}:\\
+        \emph{``to develop abilities through practice with instruction or supervision''} \\
+       \item[$\hookrightarrow$] Software-based
+    \end{itemize}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \begin{center}
+    \begin{itemize}
+    \only<1-2>{\includegraphics[width=0.6\textwidth, angle = -3]{teaching.png}  \\ }
+    \only<3-4>{\includegraphics[width=0.6\textwidth]{training.png}  \\ }
+    \only<5-6>{\includegraphics[width=0.9\textwidth]{teaching_vs_learning.png} \\  }
+    \only<1-6>{ \textcolor{gris}{\tiny{ Source: \href{https://book.fosteropenscience.eu/en/}{The Open Science Training Handbook} }}}
+    \end{itemize}
+    \end{center}
+  \end{column}
+\end{columns}
+
+\begin{itemize}
+\item[]
+\only<5>{\begin{center}
+            $\hookrightarrow$  Teaching \textbf{for} Training
+        \end{center}}
+\only<6>{\begin{center}
+            $\hookrightarrow$  Teaching (be)\textbf{for}(e) Training
+        \end{center}}
+ \end{itemize}
+\end{frame}
+
+\section{Design}
+
+\begin{frame}[fragile]
+\frametitle{Designing a ML course}
+\textcolor{orange}{\textbf{Guiding ideas:}}
+\pause
+\begin{columns}[T]
+  \begin{column}{0.7\textwidth}
+    \begin{itemize}[<+->]
+      \item No ``\texttt{YAML}''
+      \item[$\hookrightarrow$]Not \textbf{Y}et \textbf{A}nother \textbf{M}achine \textbf{L}earning Course!
+      \item Adapted to and for NSOs
+      \item[$\hookrightarrow$] \emph{"Real-life"} data, case studies, interviews, ...
+      \item Mathematical foundations
+      \item[$\hookrightarrow$] Connect to \emph{actual} NSOs toolboxes
+      \item Practical but (almost) software free
+      \item[$\hookrightarrow$] Focus on ML logic  \&  algorithms \\
+      + interactive widgets
+    \end{itemize}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{pen_paper.png}
+    \end{center}
+     \hfill \textcolor{gris}{\tiny{\href{https://book.fosteropenscience.eu/en/}{The Open Science Training Handbook} }}
+  \end{column}
+\end{columns}
+\end{frame}
+
+
+\section{What for?}
+
+\begin{frame}[fragile]
+\frametitle{Learning Objectives }
+\textcolor[rgb]{0.75,0.75,0.75}{Who? What? How? and ...}\textcolor{orange}{\textbf{What for? }}
+\pause
+
+\begin{columns}[T]
+  \begin{column}{0.7\textwidth}
+    \begin{itemize}[<+->]
+      \item[]
+      \item Not for Big Data applications
+      \item[$\hookrightarrow$] Use cases on manageable data
+      \item Not (only) for awareness
+      \item[$\hookrightarrow$] \emph{Apply}, analyze, evaluate
+      \item For an easy (individual) kick-off
+      \item[$\hookrightarrow$] Tutorials \& reproducible hands-on
+      \item For opening the ML \emph{\textbf{black-box}} \\
+      $\Longrightarrow$ \emph{Critical approach}
+      \item[$\hookrightarrow$] Playable widgets, (hyper)parameters tuning
+    \end{itemize}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+    \begin{center}
+      \includegraphics[width=1.2\textwidth]{03_bloom_s_taxonomy.png}
+    \end{center}
+     \hfill \textcolor{gris}{\tiny{\href{https://book.fosteropenscience.eu/en/}{The Open Science Training Handbook} }}
+  \end{column}
+\end{columns}
+\end{frame}
+
+
+\section{What?}
+
+\begin{frame}[fragile]
+\frametitle{A diversity of activities}
+\textcolor{orange}{\textbf{What? }}
+\begin{columns}[c]
+  \begin{column}{0.7\textwidth}
+    \begin{itemize}[<+->]
+      \item ML \textbf{principles} covered:
+      \item[$\hookrightarrow$] Train+validation sets, cross-validation, overfitting, bagging, boosting, hyperparameters tuning $\cdots$
+     \item ML \textbf{techniques} covered:
+      \item[$\hookrightarrow$] Regression ($\subset$ non-linear \& non-parametric), penalization, classification, trees, forests, SVM, k-NN $\cdots$
+      \item Also \textbf{Ethics }\emph{(UK Statistics Authority)}
+%real-world case study (poverty from satellite images)
+%      \item[$\hookrightarrow$] Resources from Asian Development Bank
+    \end{itemize}
+  \end{column}
+
+   \begin{column}{0.3\textwidth}
+   \begin{center}
+\begin{itemize}
+    \only<1-2>{\includegraphics[width=0.9\textwidth]{ML-Sets1.png} \\ }
+    \only<1-2>{\includegraphics[width=0.9\textwidth]{ML-Sets4.png} \\ }
+    \only<1-2>{\includegraphics[width=0.7\textwidth]{k-NN-over.png} \includegraphics[width=0.7\textwidth]{k-NN-under.png} \\ }
+    %\only<3-4>{\includegraphics[width=\textwidth]{SIAP_ML_CourseL.PNG} \\ }
+    \only<3-4>{\includegraphics[width=0.6\textwidth]{Random_forest_diagram_complete.png} \includegraphics[width=0.6\textwidth]{boostingALL.png} \\  }
+    \only<5>{\includegraphics[width=0.6\textwidth]{brain.png}  \\ }
+    \only<5>{  \textcolor{gris}{\tiny{\href{https://book.fosteropenscience.eu/en/}{The Open Science Training Handbook} }}}
+\end{itemize}
+\end{center}
+  \end{column}
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A diversity of activities}
+\textcolor{orange}{What} is \textbf{not} covered?
+\begin{columns}[c]
+  \begin{column}{0.6\textwidth}
+    \begin{itemize}[<+->]
+      \item Infrastructure
+      \item Software
+      \item MLOps
+      \item Deployment/integration
+      \item Quality framework,\\
+      $\cdots$
+    \end{itemize}
+  \end{column}
+
+   \begin{column}{0.4\textwidth}
+   \begin{center}
+\begin{itemize}
+
+    \only<1>{\includegraphics[width=0.6\textwidth]{database.png} \\ }
+    \only<2>{\includegraphics[width=0.3\textwidth]{R_logo.svg.png}  \includegraphics[width=0.3\textwidth]{python-logo.png} \\ \includegraphics[width=0.3\textwidth]{Tensorflow_logo.svg.png}  \includegraphics[width=0.5\textwidth]{Pytorch.png} \\  }
+    \only<3-4>{\includegraphics[width=0.6\textwidth]{gears.png} \\ }
+    \only<5>{\includegraphics[width=0.6\textwidth]{peer_review.png} \\ }
+    \only<1>{  \textcolor{gris}{\tiny{\href{https://book.fosteropenscience.eu/en/}{The Open Science Training Handbook} }}}
+    \only<3-5>{  \textcolor{gris}{\tiny{\href{https://book.fosteropenscience.eu/en/}{The Open Science Training Handbook} }}}
+\end{itemize}
+\end{center}
+  \end{column}
+
+\end{columns}
+\end{frame}
+
+
+
+
+\section{So What?}
+
+\begin{frame}[fragile]
+\frametitle{Lessons learned}
+\textcolor{orange}{\textbf{So what? }}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \begin{itemize}[<+->]
+      \item "Long" course: 6+1 Mod. (8 weeks)
+      \item[$\hookrightarrow$] $\simeq$  70 activities, 6 tests, 6 webinars
+      \item Preferred activities (2022)
+      \item[$\hookrightarrow$] Ethics
+      \item[$\hookrightarrow$] Exercises! (imputation + RF)
+      \item[$\hookrightarrow$] Interactive widgets
+      \item[$\hookrightarrow$] Interactive videos
+      \item Optional replication exercise
+    \end{itemize}
+  \end{column}
+
+   \begin{column}{0.5\textwidth}
+   \begin{center}
+\begin{itemize}
+    \only<1-2>{\includegraphics[width=0.3\textwidth]{SIAP_ML_Course.PNG}}
+    \only<1-2>{\hfill \textcolor{gris}{\tiny{\href{https://siap-elearning.org/course/view.php?id=184}{SIAP's 2022 ML course} }}}
+    %\only<1-2>{\includegraphics[width=0.45\textwidth]{k-NN-over.png} \includegraphics[width=0.45\textwidth]{k-NN-under.png} \\ }
+    \only<3>{\includegraphics[width=0.8\textwidth]{MLPreferred.PNG} \\ }
+    \only<4>{\includegraphics[width=0.8\textwidth]{MLPreferred1.PNG} \\ }
+    \only<5>{\includegraphics[width=0.8\textwidth]{MLPreferred2.PNG} \\ }
+    \only<6>{\includegraphics[width=0.8\textwidth]{MLPreferred3.PNG} \\ }
+    \only<7>{\includegraphics[width=0.8\textwidth]{MLPreferred4.PNG} \\ }
+    \only<8>{\includegraphics[width=1.0\textwidth]{MLProject.PNG} \\ }
+    \only<8>{ \center \includegraphics[height=2ex]{R_logo.svg.png} \& \includegraphics[height=2ex]{python-logo.png}}
+
+    \only<3-7>{\hfill \textcolor{gris}{\tiny{\href{https://siap-elearning.org/course/view.php?id=184}{SIAP's 2022 ML course} }}}
+\end{itemize}
+    \end{center}
+    \end{column}
+\end{columns}
+\end{frame}
+
+\section{Finally}
+
+\begin{frame}[fragile]
+\frametitle{Final (?) thoughts}
+%\textcolor{orange}{\textbf{So what? }}
+\begin{columns}[T]
+  \begin{column}{0.6\textwidth}
+    \begin{itemize}[<+->]
+      \item A software agnostic approach is possible
+      \item[$\cdots$] but hands-on useful! (\includegraphics[height=2ex]{R_logo.svg.png} \& \includegraphics[height=2ex]{python-logo.png})
+     % \item Impacts?
+      \item limitations:
+      \item[$\hookrightarrow$] Online, we train individuals!
+      \item[$\hookrightarrow$] "Small" data sets $\neq$ NSO data sets!
+      \item Improvements:
+      \item[$\hookrightarrow$] ML $\subset$ Data Science
+      \item[$\hookrightarrow$] Hybrid approach?  $\Longrightarrow$ Training
+      \item[$\Rightarrow$] Face-to-face follow-up (mentoring?)
+      \item TBC $\cdots$
+    \end{itemize}
+  \end{column}
+
+   \begin{column}{0.4\textwidth}
+   \begin{center}
+\begin{itemize}
+    \only<1-2>{\includegraphics[width=0.75\textwidth]{research_group.png} \\ }
+   % \only<1-2>{\hfill \textcolor{gris}{\tiny{\href{https://siap-elearning.org/course/view.php?id=184}{SIAP's Self-paced ML course} }}}
+    \only<3>{\includegraphics[width=0.6\textwidth]{open_scholarship.png} \\ }
+    \only<4>{\includegraphics[width=0.6\textwidth]{handson.png} \\ }
+    \only<5>{\includegraphics[width=0.6\textwidth]{database.png} \\ }
+    \only<6>{\includegraphics[width=0.6\textwidth]{idea.png} \\ }
+    \only<7>{\includegraphics[width=0.9\textwidth]{02_reproducible_research_data_analysis.png} \\ }
+    \only<8>{\includegraphics[width=0.8\textwidth]{03_motivation_demotivation.png} \\ }
+    \only<9>{\includegraphics[width=0.6\textwidth]{guidance.png} \\ }
+    \only<1-9>{  \textcolor{gris}{\tiny{\href{https://book.fosteropenscience.eu/en/}{The Open Science Training Handbook} }}}
+    \only<10>{\href{https://www.unsiap.or.jp/on_line/ML/flyer-MLOS.pdf}{\includegraphics[width=0.75\textwidth]{flyer-All_Page_1.jpg}} \\ }
+    \only<10>{\hfill \textcolor{gris}{\tiny{\href{https://siap-elearning.org/course/view.php?id=170}{SIAP's Self-paced ML course} }}}
+\end{itemize}
+    \end{center}
+    \end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Questions?}
+%\textcolor{orange}{\textbf{So what? }}
+\begin{columns}[c]
+  \begin{column}{0.5\textwidth}
+    \begin{itemize}[<+->]
+      \item[] \href{https://www.unsiap.or.jp/on_line/ML/flyer-MLOS.pdf}{Flyer} $\Rightarrow$
+      \item[] \href{https://github.com/XtopheB/MLOS-SIAP}{ \includegraphics[height=4ex]{GitHub.png} GitHub Repo}
+      \item[] \href{https://xtophedataviz.shinyapps.io/KnnExplore/}{\includegraphics[height=4ex]{Shiny-logo.png} Shiny app}
+
+    \end{itemize}
+  \end{column}
+
+   \begin{column}{0.5\textwidth}
+   \begin{center}
+\begin{itemize}
+  \only<1-3>{\href{https://www.unsiap.or.jp/on_line/ML/flyer-MLOS.pdf}{\includegraphics[width=0.70\textwidth]{flyer-All_Page_1.jpg}} \\ }
+    %\only<1-2>{\hfill \textcolor{gris}{\tiny{\href{https://siap-elearning.org/course/view.php?id=170}{SIAP's Self-paced ML course} }}}
+\end{itemize}
+    \end{center}
+    \end{column}
+\end{columns}
+\end{frame}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
