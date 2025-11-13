@@ -93,12 +93,13 @@
 \usepackage[comma,authoryear]{natbib}
 
 
-\title{\textcolor{siap}{ML Training}}
-\subtitle{\large{Who? What? How? and ... \textcolor{orange}{\textbf{What for?}}}}
+\title{\textcolor{siap}{Why Training to Data Science, Big Data and AI?}}
+%\subtitle{\large{Who? What? How? and ... \textcolor{orange}{\textbf{What for?}}}}
 \author{Christophe Bontemps}
 \institute{\large{\emph{Statistical Institute for Asia and the Pacific} } \\
     \includegraphics[height=10ex]{SIAP_logo_Big.png}}
-\date{\emph{UNECE Machine Learning for Official Statistics Workshop 2023}}
+\date{ \small{ \includegraphics[height=6ex]{ICDSOS_logo.png}\\
+    \emph{3rd International Conference on Data Science and Official Statistics (ICDSOS) 2025}}}
 
 \begin{document}
 
@@ -106,35 +107,7 @@
 
 
 \begin{frame}[fragile]
-\frametitle{Disclaimer}
-
-\begin{columns}[c]
-  \begin{column}{0.6\textwidth}
-    \begin{itemize} [<+->]
-      \item My own views
-      \item Based on 2 facilitated courses (2021 \& 2022)
-      \item[+] 1 Self-paced course (2022-)
-      \item Experience on e-learning only \\ ($\simeq$ 1000 participants)
-      \item Support from Asian Development Bank
-    \end{itemize}
-  \end{column}
-
-  \begin{column}{0.4\textwidth}
-    \begin{center}
-\begin{itemize}
-    \only<1-3>{\includegraphics[width=0.70\textwidth]{open_education.png}  \\ }
-    \only<4-5>{\includegraphics[width=0.5\textwidth]{handson.png} \\  }
-    \only<1-5>{ \textcolor{gris}{\tiny{ Source: \href{https://book.fosteropenscience.eu/en/}{The Open Science Training Handbook} }}}
-\end{itemize}
-    \end{center}
-  \end{column}
-\end{columns}
-\end{frame}
-
-\section{Training}
-
-\begin{frame}[fragile]
-\frametitle{Training vs Teaching?}
+\frametitle{From Data to Impact: Training!}
 \begin{columns}[t]
   \begin{column}{0.5\textwidth}
     \begin{itemize}[<+->]
@@ -410,7 +383,15 @@
 \end{columns}
 \end{frame}
 
-
+\begin{frame}[allowframebreaks]%in case more than 1 slide needed
+\frametitle{References}
+\nocite{*}
+    {\footnotesize
+    %\bibliographystyle{authordate1}
+    \bibliographystyle{apalike}
+    \bibliography{BigDataOS}
+    }
+\end{frame}
 
 \end{document}
 
